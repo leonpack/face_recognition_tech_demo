@@ -123,8 +123,8 @@ class Ui_OutputDialog(QDialog):
                             CheckOutTime = self.TimeList2[-1]
                             self.ElapseHours = (CheckOutTime - CheckInTime)
 
-                            self.HoursLabel.setText("{:.0f}".format(abs(self.ElapseHours.total_seconds() / 60**2)))
-                            self.MinLabel.setText("{:.0f}".format(abs(self.ElapseHours.total_seconds() / 60)%60))
+                            self.HoursLabel.setText("{:.0f}".format(abs(self.ElapseHours.total_seconds() / 60**2)) + " Gio")
+                            self.MinLabel.setText("{:.0f}".format(abs(self.ElapseHours.total_seconds() / 60)%60) + " Phut")
 
                             self.ClockOutButton.setEnabled(True)
                         else:
