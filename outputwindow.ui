@@ -30,7 +30,7 @@
    </font>
   </property>
   <property name="windowTitle">
-   <string>Nhan Dien Guong Mat </string>
+   <string>Phần mềm quản lý nhân sự - CƠ SỞ MỘC HIỆP</string>
   </property>
   <property name="windowIcon">
    <iconset resource="resource.qrc">
@@ -338,6 +338,27 @@
      </item>
     </layout>
    </widget>
+  </widget>
+  <widget class="QLabel" name="label_6">
+   <property name="geometry">
+    <rect>
+     <x>680</x>
+     <y>570</y>
+     <width>271</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Calibri</family>
+     <pointsize>11</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>Thanks to Raiz - Powered by Cosomochiep</string>
+   </property>
   </widget>
  </widget>
  <resources>
