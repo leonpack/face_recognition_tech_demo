@@ -103,7 +103,7 @@ class Ui_OutputDialog(QDialog):
                             print('Không bấm được.')
                             self.ClockInButton.setEnabled(True)
             elif self.ClockOutButton.isChecked():
-                self.ClockOutButton.setEnable(False)
+                self.ClockOutButton.setEnabled(False)
                 with open('Attendance.csv', 'a') as f:
                     if (name != 'unknown'):
                         buttonReply = QMessageBox.question(self, 'Chào ' + name, 'Bạn muốn kết thúc ngày hôm nay ?',
@@ -118,16 +118,15 @@ class Ui_OutputDialog(QDialog):
                             self.Time2 = datetime.datetime.now()
 
                             self.ElapseList(name)
-                            self.TimeList2.append()
+                            self.TimeList2.append(datetime.datetime.now())
+                            CheckInTime = self.TimeList1[-1]
+                            CheckOutTime = self.TimeList2[-1]
+                            self.ElapseHours = (CheckOutTime - CheckInTime)
 
+                            self.HoursLabel.setText("{:.0f}".format(abs(self.ElapseHours.total_seconds() / 60**2)))
+                            self.MinLabel.setText("{:.0f}".format(abs(self.ElapseHours.total_seconds() / 60)%60))
 
-
-                            self.HoursLabel.setText("Đang tính toán")
-                            self.MinLabel.setText('')
-
-                            self.Time1 = datetime.datetime.now()
-
-                            self.ClockOutButton.setEnable(True)
+                            self.ClockOutButton.setEnabled(True)
                         else:
                             print('Không bấm được.')
                             self.ClockOutButton.setEnabled(True)
@@ -154,6 +153,27 @@ class Ui_OutputDialog(QDialog):
     def update_frame(self):
         ret, self.image = self.capture.read()
         self.displayImage(self.image, self.encode_list, self.class_names, 1)
+
+    def ElapseList(self, name):
+        with open('Attendance.csv', 'r') as csv_file:
+            csv_reader = csv.reader(csv_file, delimiter=',')
+            line_count=2
+
+            Time1 = datetime.datetime.now()
+            Time2 = datetime.datetime.now()
+            for row in csv_reader:
+                for field in row:
+                    if field in row:
+                        if field == 'Gio vao':
+                            if row[0] == name:
+                                Time1 = (datetime.datetime.strptime(row[1],'%y/%m/%d %H:%M:%S'))
+                                self.TimeList1.append(Time1)
+                        if field == 'Gio ra':
+                            if row[0] == name:
+                                Time2 = (datetime.datetime.strptime(row[1],'%y/%m/%d %H:%M:%S'))
+                                self.TimeList2.append(Time2)
+
+
 
     def displayImage(self, image, encode_list, class_names, window=1):
         """
