@@ -99,19 +99,18 @@ class Ui_OutputDialog(QDialog):
                             self.Time1 = datetime.datetime.now()
 
                             self.ClockInButton.setEnabled(True)
-                        else:
+                        if buttonReply == QMessageBox.No:
                             print('Không bấm được.')
                             self.ClockInButton.setEnabled(True)
             elif self.ClockOutButton.isChecked():
                 self.ClockOutButton.setEnabled(False)
                 with open('Attendance.csv', 'a') as f:
                     if (name != 'unknown'):
-                        buttonReply = QMessageBox.question(self, 'Chào ' + name, 'Bạn muốn kết thúc ngày hôm nay ?',
-                                                           QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+                        buttonReply = QMessageBox.question(self, 'Chào ' + name, 'Bạn muốn kết thúc ngày hôm nay ?', QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
                         if buttonReply == QMessageBox.Yes:
                             date_time_string = datetime.datetime.now().strftime("%y/%m/%d %H:%M:%S")
                             f.writelines(f'\n{name},{date_time_string},Gio ra')
-                            self.ClockInButton.setChecked(False)
+                            self.ClockOutButton.setChecked(False)
 
                             self.NameLabel.setText(name)
                             self.StatusLabel.setText('Đã kết thúc giờ làm')
